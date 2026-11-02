@@ -4,17 +4,26 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>One Dot at a Time — Jim York</title>
-  <meta name="description" content="Stipple and pen-and-ink drawings by Jim York. One Dot at a Time." />
+  <meta name="description" content="Stipple and pen-and-ink drawings by Jim York. Fine art built one mark at a time." />
+  <meta name="theme-color" content="#0e0e0e" />
+  <meta property="og:title" content="One Dot at a Time — Jim York" />
+  <meta property="og:description" content="Stipple and pen-and-ink drawings. One mark at a time." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kroymij2026-spec.github.io/One_dot_ataTime/" />
+  <meta property="og:image" content="https://kroymij2026-spec.github.io/One_dot_ataTime/img/michael.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #121212;
+      --bg: #0e0e0e;
+      --surface: #161616;
       --ink: #f2efe8;
-      --muted: #a8a29a;
-      --line: #2a2a2a;
-      --max: 920px;
+      --muted: #9a948c;
+      --line: #262626;
+      --accent: #d4cfc4;
+      --max: 980px;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -24,101 +33,199 @@
       color: var(--ink);
       font-family: "Source Sans 3", system-ui, sans-serif;
       font-weight: 400;
-      line-height: 1.55;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .skip {
+      position: absolute;
+      left: -9999px;
+    }
+    .skip:focus {
+      left: 1rem;
+      top: 1rem;
+      z-index: 10;
+      background: var(--surface);
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--line);
     }
     header {
-      padding: 3.5rem 1.5rem 2rem;
+      padding: clamp(2.5rem, 6vw, 4.5rem) 1.5rem 2.25rem;
       text-align: center;
       border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,255,255,0.035), transparent 70%);
+    }
+    .mark {
+      display: inline-block;
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-bottom: 1.1rem;
+      opacity: 0.85;
     }
     h1 {
       font-family: "Cormorant Garamond", Georgia, serif;
       font-weight: 600;
-      font-size: clamp(2.2rem, 6vw, 3.4rem);
-      letter-spacing: 0.02em;
-      margin: 0 0 0.4rem;
+      font-size: clamp(2.35rem, 6.5vw, 3.6rem);
+      letter-spacing: 0.04em;
+      margin: 0 0 0.55rem;
+      line-height: 1.1;
     }
     .byline {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--muted);
       font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       margin: 0;
     }
     .intro {
-      max-width: 36rem;
-      margin: 1.25rem auto 0;
-      font-size: 1.05rem;
+      max-width: 34rem;
+      margin: 1.35rem auto 0;
+      font-size: 1.08rem;
       color: var(--muted);
+      font-weight: 300;
+    }
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem 1.25rem;
+      justify-content: center;
+      margin-top: 1.75rem;
+      font-size: 0.88rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 0.1rem;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .nav a:hover,
+    .nav a:focus-visible {
+      color: var(--ink);
+      border-bottom-color: var(--accent);
+      outline: none;
     }
     main {
       max-width: var(--max);
       margin: 0 auto;
-      padding: 2.5rem 1.25rem 4rem;
+      padding: clamp(2rem, 4vw, 3rem) 1.25rem 4.5rem;
     }
     article {
-      margin-bottom: 3.5rem;
+      margin-bottom: clamp(2.75rem, 5vw, 4rem);
     }
-    article:last-child { margin-bottom: 1rem; }
+    article:last-child { margin-bottom: 0.5rem; }
     figure {
       margin: 0;
-      background: #1a1a1a;
+      background: var(--surface);
       border: 1px solid var(--line);
-      padding: 0.75rem;
-      box-shadow: 0 1px 0 rgba(0,0,0,0.35);
+      padding: clamp(0.65rem, 1.5vw, 1rem);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+    }
+    figure a {
+      display: block;
+      text-decoration: none;
     }
     figure img {
       display: block;
       width: 100%;
       height: auto;
-      vertical-align: middle;
+      max-height: min(82vh, 1100px);
+      object-fit: contain;
+      margin: 0 auto;
+      background: #0a0a0a;
     }
     figcaption {
-      margin-top: 1rem;
+      margin-top: 1.15rem;
+      padding: 0 0.35rem 0.35rem;
       text-align: center;
     }
     figcaption .title {
       font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 1.45rem;
+      font-size: clamp(1.35rem, 3vw, 1.65rem);
       font-weight: 600;
+      letter-spacing: 0.02em;
       margin: 0;
     }
     figcaption .meta {
-      margin: 0.35rem 0 0;
-      font-size: 0.92rem;
+      margin: 0.4rem 0 0;
+      font-size: 0.9rem;
       color: var(--muted);
       font-weight: 300;
+      letter-spacing: 0.03em;
     }
     footer {
       border-top: 1px solid var(--line);
-      padding: 2rem 1.5rem 3rem;
+      padding: 2.25rem 1.5rem 3.25rem;
       text-align: center;
       color: var(--muted);
       font-size: 0.9rem;
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,0.015));
+    }
+    footer .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.1rem;
+      justify-content: center;
+      margin: 0 0 1.1rem;
     }
     footer a {
       color: var(--ink);
       text-decoration: none;
       border-bottom: 1px solid var(--line);
+      padding-bottom: 0.05rem;
     }
-    footer a:hover { border-bottom-color: var(--ink); }
+    footer a:hover,
+    footer a:focus-visible {
+      border-bottom-color: var(--accent);
+      outline: none;
+    }
     .tags {
-      margin-top: 0.75rem;
-      font-size: 0.8rem;
-      letter-spacing: 0.01em;
-      color: #7a746c;
+      margin: 0 0 1rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      color: #6f6a63;
+      max-width: 36rem;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+    .copy {
+      margin: 0;
+      font-size: 0.85rem;
+      font-weight: 300;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .nav a, footer a { transition: none; }
     }
   </style>
 </head>
 <body>
+  <a class="skip" href="#gallery">Skip to gallery</a>
   <header>
+    <span class="mark" aria-hidden="true"></span>
     <h1>One Dot at a Time</h1>
     <p class="byline">Stipple · pen and ink · Jim York</p>
     <p class="intro">Fine drawings built one mark at a time — architecture, figure, and quiet detail.</p>
+    <nav class="nav" aria-label="Social">
+      <a href="https://www.instagram.com/one_dot_atatime/">Instagram</a>
+      <a href="https://x.com/one_dot_atatime">X</a>
+      <a href="https://www.facebook.com/onedotatatime.art">Facebook</a>
+      <a href="https://www.xibit360.art/@onedotatatime">3D gallery</a>
+    </nav>
   </header>
-  <main>
+  <main id="gallery">
     <article id="michael">
       <figure>
-        <img src="img/michael.jpg" alt="Archangel Michael — stipple drawing by Jim York" width="1600" height="2337" loading="eager" />
+        <a href="img/michael.jpg" target="_blank" rel="noopener">
+          <img src="img/michael.jpg" alt="Archangel Michael — stipple drawing by Jim York" width="1600" height="2337" loading="eager" decoding="async" />
+        </a>
         <figcaption>
           <p class="title">No. 01 — Archangel Michael</p>
           <p class="meta">Stipple / pen and ink</p>
@@ -127,35 +234,36 @@
     </article>
     <article id="through-the-frames">
       <figure>
-        <img src="img/through-the-frames.jpg" alt="Through the Frames — stipple drawing by Jim York" width="1520" height="1172" loading="lazy" />
+        <a href="img/through-the-frames.jpg" target="_blank" rel="noopener">
+          <img src="img/through-the-frames.jpg" alt="Through the Frames — stipple drawing by Jim York" width="1520" height="1172" loading="lazy" decoding="async" />
+        </a>
         <figcaption>
           <p class="title">No. 02 — Through the Frames</p>
-          <p class="meta">Stipple / pen and ink</p>
+          <p class="meta">Stipple / pen and ink · 2024</p>
         </figcaption>
       </figure>
     </article>
     <article id="capitol">
       <figure>
-        <img src="img/capitol.jpg" alt="Capitol — stipple drawing by Jim York" width="1600" height="1277" loading="lazy" />
+        <a href="img/capitol.jpg" target="_blank" rel="noopener">
+          <img src="img/capitol.jpg" alt="Capitol — stipple drawing by Jim York" width="1600" height="1277" loading="lazy" decoding="async" />
+        </a>
         <figcaption>
           <p class="title">No. 03 — Capitol</p>
-          <p class="meta">Stipple / pen and ink</p>
+          <p class="meta">Stipple / pen and ink · 2024</p>
         </figcaption>
       </figure>
     </article>
   </main>
   <footer>
-    <p>
+    <p class="links">
       <a href="https://www.instagram.com/one_dot_atatime/">Instagram</a>
-      ·
       <a href="https://x.com/one_dot_atatime">X</a>
-      ·
       <a href="https://www.facebook.com/onedotatatime.art">Facebook</a>
-      ·
       <a href="https://www.xibit360.art/@onedotatatime">3D gallery</a>
     </p>
-    <p class="tags">#onedotatatime #stippling #stippleart #dotwork #penandink</p>
-    <p>© Jim York · Tempe, AZ</p>
+    <p class="tags">#onedotatatime #stippling #stippleart #stipplingart #dotwork #dotart #pointillism #penandink #inkonpaper</p>
+    <p class="copy">© Jim York · Tempe, AZ</p>
   </footer>
 </body>
 </html>
