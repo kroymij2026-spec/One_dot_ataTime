@@ -198,6 +198,134 @@
       font-size: 0.85rem;
       font-weight: 300;
     }
+
+    #prints {
+      scroll-margin-top: 1.5rem;
+      margin-top: clamp(1.5rem, 4vw, 2.5rem);
+      padding-top: clamp(2.5rem, 5vw, 3.5rem);
+      border-top: 1px solid var(--line);
+    }
+    .prints {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(1.75rem, 4vw, 2.75rem);
+      align-items: start;
+    }
+    @media (min-width: 760px) {
+      .prints {
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+        gap: 2.75rem;
+      }
+    }
+    .prints-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+    }
+    .prints-images figure {
+      margin: 0;
+      padding: 0.45rem;
+    }
+    .prints-images img {
+      max-height: min(52vh, 640px);
+    }
+    .prints-copy h2 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(1.7rem, 3.4vw, 2.15rem);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin: 0 0 0.85rem;
+    }
+    .prints-copy p {
+      margin: 0 0 0.9rem;
+      color: var(--muted);
+      font-weight: 300;
+      font-size: 1.02rem;
+    }
+    .print-form {
+      margin-top: 1.35rem;
+      display: grid;
+      gap: 0.9rem;
+    }
+    .print-form label,
+    .print-form .field-label {
+      display: block;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+    .print-form .req {
+      color: var(--accent);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .print-form input[type="email"],
+    .print-form input[type="text"],
+    .print-form select {
+      width: 100%;
+      appearance: none;
+      background: #121212;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 0;
+      padding: 0.7rem 0.8rem;
+      font: inherit;
+      font-size: 1rem;
+    }
+    .print-form input:focus-visible,
+    .print-form select:focus-visible {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .print-form .consent {
+      display: flex;
+      gap: 0.65rem;
+      align-items: flex-start;
+      margin: 0.15rem 0 0.15rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 300;
+      text-transform: none;
+      letter-spacing: 0.01em;
+    }
+    .print-form .consent input {
+      margin-top: 0.28rem;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+    }
+    .print-form button {
+      justify-self: start;
+      background: var(--accent);
+      color: #161616;
+      border: 1px solid var(--accent);
+      padding: 0.7rem 1.25rem;
+      font: inherit;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .print-form button:hover,
+    .print-form button:focus-visible {
+      background: var(--ink);
+      border-color: var(--ink);
+      outline: none;
+    }
+    .print-form button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+    .form-status {
+      margin: 0.85rem 0 0;
+      min-height: 1.4em;
+      font-size: 0.95rem;
+      color: var(--accent);
+    }
+    .form-status[hidden] { display: none; }
+    .form-status.is-error { color: #d7b0a8; }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .nav a, footer a { transition: none; }
@@ -212,7 +340,8 @@
     </h1>
     <p class="byline">James York</p>
     <p class="intro">Every image begins with a single mark. Every detail takes patience. One dot at a time, an idea becomes something real.</p>
-    <nav class="nav" aria-label="Social">
+    <nav class="nav" aria-label="Primary">
+      <a href="#prints">Prints</a>
       <a href="https://www.instagram.com/one_dot_atatime/">Instagram</a>
       <a href="https://x.com/one_dot_atatime">X</a>
       <a href="https://www.facebook.com/onedotatatime.art">Facebook</a>
@@ -253,9 +382,73 @@
         </figcaption>
       </figure>
     </article>
+
+    <section id="prints" aria-labelledby="prints-heading">
+      <div class="prints">
+        <div class="prints-images">
+          <figure>
+            <a href="img/michael.jpg" target="_blank" rel="noopener">
+              <img src="img/michael.jpg" alt="Archangel Michael — finished stipple drawing by Jim York" width="1600" height="2337" loading="lazy" decoding="async" />
+            </a>
+          </figure>
+          <figure>
+            <a href="closeups/01-michael-closeup.jpg" target="_blank" rel="noopener">
+              <img src="closeups/01-michael-closeup.jpg" alt="Close-up of the stipple dots in Archangel Michael" width="1600" height="2000" loading="lazy" decoding="async" />
+            </a>
+          </figure>
+        </div>
+        <div class="prints-copy">
+          <h2 id="prints-heading">Prints, coming soon</h2>
+          <p>Prints are in development, and they are not for sale yet. If you would like first access when the first release is ready, join this list. No purchase is required.</p>
+          <!--
+            Google Form (owned by kroymij2026@gmail.com), wired to the public form.
+            Edit: https://docs.google.com/forms/d/1Oniu-MgiyN5YV9EC3K5UepisLFlI8p6VBetgNBzYdl4/edit
+            Viewform: https://docs.google.com/forms/d/e/1FAIpQLSch5K7I4mY262HSwFDtMaCVE2okKP7ZFyDZOPgZvBm1swqrBA/viewform
+            Posts to formResponse. Entry IDs are set in the script below.
+          -->
+          <form class="print-form" id="print-interest" action="#" method="post" novalidate>
+            <div>
+              <label for="print-email">Email <span class="req" aria-hidden="true">*</span></label>
+              <input id="print-email" name="email" type="email" autocomplete="email" required inputmode="email" />
+            </div>
+            <div>
+              <label for="print-name">Name <span class="req">(optional)</span></label>
+              <input id="print-name" name="name" type="text" autocomplete="name" />
+            </div>
+            <div>
+              <label for="print-piece">Which piece would you want as a print? <span class="req">(optional)</span></label>
+              <select id="print-piece" name="piece">
+                <option value="">Select one</option>
+                <option value="Archangel Michael">Archangel Michael</option>
+                <option value="Through the Frames">Through the Frames</option>
+                <option value="Capitol">Capitol</option>
+                <option value="Not sure yet">Not sure yet</option>
+              </select>
+            </div>
+            <div>
+              <label for="print-size">Desk or wall size? <span class="req">(optional)</span></label>
+              <select id="print-size" name="size">
+                <option value="">Select one</option>
+                <option value="Desk size (small)">Desk size (small)</option>
+                <option value="Wall size (large)">Wall size (large)</option>
+                <option value="Not sure yet">Not sure yet</option>
+              </select>
+            </div>
+            <label class="consent">
+              <input id="print-consent" name="consent" type="checkbox" value="Yes" required />
+              <span>I'd like an email when prints are available. Unsubscribe anytime.</span>
+            </label>
+            <button type="submit">Join the first-release list</button>
+            <p class="form-status" id="print-status" hidden role="status"></p>
+            <p class="form-fallback"><a href="https://docs.google.com/forms/d/e/1FAIpQLSch5K7I4mY262HSwFDtMaCVE2okKP7ZFyDZOPgZvBm1swqrBA/viewform" target="_blank" rel="noopener">Or open the signup form in a new page</a></p>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
   <footer>
     <p class="links">
+      <a href="#prints">Prints</a>
       <a href="https://www.instagram.com/one_dot_atatime/">Instagram</a>
       <a href="https://x.com/one_dot_atatime">X</a>
       <a href="https://www.facebook.com/onedotatatime.art">Facebook</a>
@@ -264,5 +457,69 @@
     <p class="tags">#onedotatatime #stippling #stippleart #stipplingart #dotwork #dotart #pointillism #penandink #inkonpaper</p>
     <p class="copy">© Jim York · Tempe, AZ</p>
   </footer>
+
+  <script>
+    (function () {
+      var form = document.getElementById("print-interest");
+      var status = document.getElementById("print-status");
+      if (!form || !status) return;
+
+      var FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSch5K7I4mY262HSwFDtMaCVE2okKP7ZFyDZOPgZvBm1swqrBA/formResponse";
+      var ENTRIES = {
+        email: "entry.306329113",
+        name: "entry.119835202",
+        piece: "entry.408781250",
+        size: "entry.1501551632",
+        consent: "entry.506378372"
+      };
+
+      function show(message, isError) {
+        status.hidden = false;
+        status.textContent = message;
+        status.classList.toggle("is-error", !!isError);
+      }
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var email = (form.email.value || "").trim();
+        if (!email || !form.email.checkValidity()) {
+          show("Please enter a valid email address.", true);
+          form.email.focus();
+          return;
+        }
+        if (!form.consent.checked) {
+          show("Please confirm you would like the email.", true);
+          form.consent.focus();
+          return;
+        }
+        if (!FORM_ACTION || !ENTRIES.email) {
+          return;
+        }
+
+        var body = new URLSearchParams();
+        body.set(ENTRIES.email, email);
+        if (ENTRIES.name && form.name.value.trim()) body.set(ENTRIES.name, form.name.value.trim());
+        if (ENTRIES.piece && form.piece.value) body.set(ENTRIES.piece, form.piece.value);
+        if (ENTRIES.size && form.size.value) body.set(ENTRIES.size, form.size.value);
+        if (ENTRIES.consent && form.consent.checked) body.set(ENTRIES.consent, form.consent.value || "Yes");
+
+        var button = form.querySelector("button[type='submit']");
+        if (button) button.disabled = true;
+
+        fetch(FORM_ACTION, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: body.toString()
+        }).then(function () {
+          form.hidden = true;
+          show("You're on the first-print list. I'll email you when prints are available.");
+        }).catch(function () {
+          if (button) button.disabled = false;
+          show("Something went wrong. Please try again in a moment.", true);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
