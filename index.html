@@ -331,6 +331,20 @@
       .nav a, footer a { transition: none; }
     }
   </style>
+  <script src="https://cdn.amplitude.com/script/e5c944c6f1f723ec60c9b5274350c4f8.js"></script>
+  <script>
+    window.amplitude.init("e5c944c6f1f723ec60c9b5274350c4f8", {
+      fetchRemoteConfig: true,
+      autocapture: {
+        attribution: true,
+        fileDownloads: true,
+        formInteractions: true,
+        pageViews: true,
+        sessions: true,
+        elementInteractions: true
+      }
+    });
+  </script>
 </head>
 <body>
   <a class="skip" href="#gallery">Skip to gallery</a>
@@ -409,11 +423,11 @@
           <form class="print-form" id="print-interest" action="#" method="post" novalidate>
             <div>
               <label for="print-email">Email <span class="req" aria-hidden="true">*</span></label>
-              <input id="print-email" name="email" type="email" autocomplete="email" required inputmode="email" />
+              <input id="print-email" name="email" type="email" autocomplete="email" required inputmode="email" data-amp-mask />
             </div>
             <div>
               <label for="print-name">Name <span class="req">(optional)</span></label>
-              <input id="print-name" name="name" type="text" autocomplete="name" />
+              <input id="print-name" name="name" type="text" autocomplete="name" data-amp-mask />
             </div>
             <div>
               <label for="print-piece">Which piece would you want as a print? <span class="req">(optional)</span></label>
@@ -496,11 +510,14 @@
           return;
         }
 
+        var piece = form.piece.value || "";
+        var size = form.size.value || "";
+
         var body = new URLSearchParams();
         body.set(ENTRIES.email, email);
         if (ENTRIES.name && form.name.value.trim()) body.set(ENTRIES.name, form.name.value.trim());
-        if (ENTRIES.piece && form.piece.value) body.set(ENTRIES.piece, form.piece.value);
-        if (ENTRIES.size && form.size.value) body.set(ENTRIES.size, form.size.value);
+        if (ENTRIES.piece && piece) body.set(ENTRIES.piece, piece);
+        if (ENTRIES.size && size) body.set(ENTRIES.size, size);
         if (ENTRIES.consent && form.consent.checked) body.set(ENTRIES.consent, form.consent.value || "Yes");
 
         var button = form.querySelector("button[type='submit']");
@@ -514,10 +531,69 @@
         }).then(function () {
           form.hidden = true;
           show("You're on the first-print list. I'll email you when prints are available.");
+          if (window.amplitude && typeof window.amplitude.track === "function") {
+            var props = {};
+            if (piece) props.piece = piece;
+            if (size) props.size = size;
+            window.amplitude.track("Print Signup Submitted", props);
+          }
         }).catch(function () {
           if (button) button.disabled = false;
           show("Something went wrong. Please try again in a moment.", true);
         });
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      function trackArtwork(title) {
+        if (!title || trackArtwork.seen[title]) return;
+        trackArtwork.seen[title] = true;
+        if (window.amplitude && typeof window.amplitude.track === "function") {
+          window.amplitude.track("Artwork Viewed", { "Artwork Title": title });
+        }
+      }
+      trackArtwork.seen = {};
+
+      function titleFromFigure(figure) {
+        var cap = figure.querySelector("figcaption .title");
+        if (cap) return cap.textContent.replace(/\s+/g, " ").trim();
+        var img = figure.querySelector("img");
+        if (!img) return "";
+        var src = img.getAttribute("src") || "";
+        if (src.indexOf("closeup") !== -1) {
+          if (src.indexOf("michael") !== -1) return "Archangel Michael (close-up)";
+          if (src.indexOf("through-the-frames") !== -1) return "Through the Frames (close-up)";
+          if (src.indexOf("capitol") !== -1) return "Capitol (close-up)";
+        }
+        if (src.indexOf("michael") !== -1) return "No. 01 — Archangel Michael";
+        if (src.indexOf("through-the-frames") !== -1) return "No. 02 — Through the Frames";
+        if (src.indexOf("capitol") !== -1) return "No. 03 — Capitol";
+        return (img.getAttribute("alt") || "").trim();
+      }
+
+      var figures = document.querySelectorAll("main figure");
+      if ("IntersectionObserver" in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var title = titleFromFigure(entry.target);
+            if (title) {
+              trackArtwork(title);
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.35 });
+        figures.forEach(function (figure) { observer.observe(figure); });
+      }
+
+      document.addEventListener("click", function (event) {
+        var link = event.target && event.target.closest && event.target.closest("main figure a");
+        if (!link) return;
+        var figure = link.closest("figure");
+        if (!figure) return;
+        var title = titleFromFigure(figure);
+        if (title) trackArtwork(title);
       });
     })();
   </script>
